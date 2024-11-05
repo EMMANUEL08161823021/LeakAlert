@@ -1,0 +1,211 @@
+.dash {
+    display: flex;
+    flex-direction: column;
+    /* border: 5px solid green; */
+    height: 100%;
+}
+.navbar {
+    position: fixed;
+    height: 10vh;
+    width: 100%;
+    right: 0;
+    display: flex;
+    background-color: #0052CC;
+    align-items: center;
+    color: white;
+    z-index: 3;
+}
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0 10px;
+}
+.nav-container .navBlock {
+    display: none;
+}
+.dash-container {
+    /* display: flex; */
+    position: relative;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
+    background-color: #172B4D;
+    top: 10vh;
+}
+.mobile-sidebar {
+    position: relative;
+    top: 10vh;
+    left: 0;
+    background-color: #0052CC;
+    color: white;
+}
+.mobile-wrapper {
+    border: 2px solid white;
+    padding: 0 20px;
+}
+
+.list {
+    padding: 20px;
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.sidebar {
+    width: 20%;
+    position: fixed;
+    left: 0;
+    top: 10vh;
+    height: 90vh;
+    /* background-color: lightgray; */
+    background-color: #172B4D;
+    color: white;
+
+}
+.sidebar .side-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    /* border: 2px solid yellow; */
+    height: 100%;
+
+}
+.sidebar .side-wrapper nav {
+    /* border: 2px solid white; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 80%;
+}
+.sidebar .side-wrapper nav ul {
+    /* border: 2px solid white; */
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 0;
+}
+.sidebar .side-wrapper nav ul .link {
+    color: white;
+    text-decoration: none;
+    padding: 10px 5px;
+    text-align: left;
+}
+.sidebar .side-wrapper nav ul .link:hover {
+    background-color: whitesmoke;
+    color: black;
+    font-weight: 400;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+.dashboard {
+    position: absolute;
+    /* margin: 20px 0; */
+    left: 20%;
+    background-color: whitesmoke;
+    height: fit-content;
+    /* padding: 20px; */
+    width: 80% !important;
+}
+.dashboard .dash-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    gap: 30px;
+
+}
+::-webkit-scrollbar {
+    display: none;
+    
+  }
+/* Container for the table to enable scrolling */
+.table-container {
+    width: 100%; /* Ensures the container takes full width */
+    overflow-x: auto; /* Enables horizontal scrolling */
+    margin: 0 auto; /* Centers the table horizontally */
+}
+  
+/* Table styles */
+.custom-table {
+    width: 100%; /* Ensures table takes full width of its container */
+    border-collapse: collapse; /* Makes sure borders are merged */
+    min-width: 800px; /* Ensures table doesn't collapse on smaller screens */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    /* border: 2px solid black; */
+
+
+}
+  
+.custom-table th, .custom-table td {
+    padding: 12px 15px; /* Adds padding inside cells */
+    text-align: left; /* Aligns text to the left */
+    border-bottom: 1px solid #ddd; /* Adds a bottom border */
+}
+  
+.custom-table thead {
+    background-color: #333; /* Background color for the header */
+    color: black; /* White text in the header */
+}
+  
+  /* Table rows style */
+.custom-table tbody {
+    background-color: white;
+    font-size: 14px;
+    font-weight: 200;
+
+}
+  
+.custom-table th {
+    background-color: white;
+    color: black; /* Header text color */
+}
+  
+.custom-table td {
+    font-size: 14px; /* Text size in table cells */
+}
+
+  
+  /* Responsive handling for small screens */
+.grid2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+.grid2 .grid-card {
+    background-color: whitesmoke;
+    border-radius: 10px;    
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+}
+.chart {
+    background-color: whitesmoke;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1);
+    padding: 10px 5px;
+    border-radius: 10px;
+}
+.chart .chart-wrapper {
+    height: 400px;
+    width: 100%;
+}
+
+@media (max-width: 700px) {
+    .nav-container .navBlock {
+        display: block;
+    }
+    .sidebar {
+        display: none;
+    
+    }
+    .dashboard {
+        position: absolute;
+        /* margin: 20px 0; */
+        left: 0;
+        background-color: whitesmoke;
+        height: fit-content;
+        /* padding: 20px; */
+        width: 100% !important;
+    }
+    
+}

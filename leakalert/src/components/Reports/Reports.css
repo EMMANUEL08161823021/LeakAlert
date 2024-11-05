@@ -1,0 +1,79 @@
+.sidebar .side-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    /* border: 2px solid yellow; */
+    height: 100%;
+
+}
+.report {
+    position: absolute;
+    /* margin: 20px 0; */
+    left: 20%;
+    background-color: whitesmoke;
+    height: fit-content;
+    /* border: 2px solid black; */
+
+    /* padding: 20px; */
+    width: 80% !important;
+    
+    
+}
+.report .report-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    gap: 30px;
+
+}
+
+.navbar .navBlock {
+    display: none;
+}
+
+.report .report-wrapper .graph {
+    display: flex;
+    flex-direction: column;
+}
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 20px; /* Adds a 20px gap between grid items */
+    /* border: 2px solid black; */
+}
+.grid .chart {
+    background-color: whitesmoke;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1);
+    padding: 10px 5px;
+    border-radius: 10px;
+    border: 1px solid lightgray;
+
+}
+.chart-grid {
+    display: flex;
+    gap: 30px;
+}
+.chart-grid .chart {
+    width: 48%;
+}
+
+@media (max-width: 700px) {
+    .navbar .navBlock {
+        display: block;
+    }
+    .report {
+        position: absolute;
+        /* margin: 0 auto; */
+        left: 0;
+        background-color: whitesmoke;
+        height: fit-content;
+        /* padding: 20px; */
+        width: 100% !important;
+    }
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px; /* Adds a 20px gap between grid items */
+        /* border: 2px solid black; */
+    }
+}

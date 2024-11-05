@@ -1,0 +1,53 @@
+.signup-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    width: 100%;
+    background: #ffff;
+    color: black;
+}
+
+.signup-wrapper::after {
+    content: ''; /* Required to display the pseudo-element */
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    opacity: ;
+    height: 40vh;
+    background-image: url("../../images/signUp.svg");
+    background-size: cover; /* Adjusts the image size */
+    background-position: right;
+    /* border-bottom-left-radius: 20px; */
+}
+
+.signUp {
+    /* position: absolute; */
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+}
+.signUp .form {
+    display: flex;
+    /* border: 2px solid black; */
+    flex-direction: column;
+    align-items: center;
+    text-align: left;
+    width: 30%;
+
+}
+.signUp .form .wrap {
+    background-color: white;
+    color: black;
+    width: 100%;
+    padding: 10px 15px;
+    margin: 10px;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1);
+
+}
