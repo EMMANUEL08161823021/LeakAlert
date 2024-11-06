@@ -585,7 +585,7 @@ const Reports = () => {
       <div className='dash-container' >        
         {/* Sidebar */}
         <div className='sidebar'>
-          <div className="side-wrapper" style={{border: '2px solid black'}}>
+          <div className="side-wrapper">
             <h3 style={{marginTop: '0'}}>Pipeline Monitor</h3>
             <nav>
               <ul style={{listStyle: 'none'}}>

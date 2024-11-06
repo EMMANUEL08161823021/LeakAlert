@@ -8,6 +8,7 @@ import "../Login/Login.css";
 import 'react-toastify/dist/ReactToastify.css';
 // import { RecaptchaVerifier } from 'firebase/auth';
 import Logo from "../../images/logo.svg";
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -15,6 +16,7 @@ const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+    const navigate = useNavigate();
 
     // const setUpRecaptcha = () => {
     //     try {
@@ -34,7 +36,7 @@ const Login = () => {
       e.preventDefault();
         try {
             await signInWithEmailAndPassword(auth, email, password);
-            window.location.href = "/dashboard"
+            navigate('/dashboard');
             toast.success("Login successful!");
         } catch (err) {
             setError("Wrong credentials!");
