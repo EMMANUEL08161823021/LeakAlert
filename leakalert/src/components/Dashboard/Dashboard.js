@@ -37,18 +37,17 @@ const Dashboard = () => {
     useEffect(() => {
       const fetchData = async () => {
         try {
-          const response = await axios.get(
-            'https://thingproxy.freeboard.io/fetch/https://leak-d9yr.onrender.com/api/v1/app/sensors/status'
-          );
+          const response = await axios.get('https://thingproxy.freeboard.io/fetch/https://leak-d9yr.onrender.com/api/v1/app/sensors/status');
           setSensorData(response.data);
           console.log(response.data);
         } catch (error) {
-          console.error("Error fetching data:", error);
+          console.error("Error fetching data:", error.response ? error.response.status : error.message);
         }
       };
     
       fetchData();
     }, []);
+    
 
   // }
 
