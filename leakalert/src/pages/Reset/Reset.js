@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { database, newPassword, auth } from '../../firebase';
 import { collection, query, where, getDocs } from 'firebase/firestore';
-import "../Reset/Reset.css";
+import "./Reset.css";
 import OtpInput from "otp-input-react";
 import { Link } from 'react-router-dom';
 import {CgSpinner} from "react-icons/cg";

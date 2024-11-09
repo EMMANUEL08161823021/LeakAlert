@@ -6,7 +6,7 @@ import Table from "../../images/tables.svg";
 import Report from "../../images/logs.svg";
 import Profile from "../../images/profile.svg";
 import Rtl from "../../images/rtl.svg";
-import "../Reports/Reports.css";
+import "./Reports.css";
 import MenuIcon from '@mui/icons-material/Menu';  // Importing the hamburger icon (Menu)
 import CloseIcon from '@mui/icons-material/Close'; 
 import { BarChart, Bar, Cell, LabelList,  } from 'recharts';

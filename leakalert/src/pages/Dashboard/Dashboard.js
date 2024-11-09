@@ -1,4 +1,4 @@
-import "../Dashboard/Dashboard.css";
+import "./Dashboard.css";
 import React, { useState, useEffect } from 'react';
 import Logo from "../../images/logo.svg";
 import Home from "../../images/home.svg";
@@ -31,20 +31,38 @@ const Dashboard = () => {
 
   const [open, setOpen] = React.useState(false);
 
+  const logout = () => {
+    localStorage.removeItem("token");
+    window.location.href = "/login"; // Redirect to the login page
+  };
+
   // const SensorStatus = () => {
  
   
     useEffect(() => {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        console.error("No token found in localStorage.");
+        return;
+      }
       const fetchData = async () => {
         try {
-          const response = await axios.get('https://thingproxy.freeboard.io/fetch/https://leak-d9yr.onrender.com/api/v1/app/sensors/status');
-          setSensorData(response.data);
-          console.log(response.data);
+          const response = await fetch('https://leak-d9yr.onrender.com/api/v1/app/sensors/status', {
+            method: 'GET',
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json',
+            },
+          });
+          const data = await response.json();
+          const dataValues = data.structuredFeeds;
+          console.log(dataValues)
+          setSensorData(dataValues); 
+          // console.log(response)
         } catch (error) {
-          console.error("Error fetching data:", error.response ? error.response.status : error.message);
+          console.error("Error fetching data:", error.message);
         }
       };
-    
       fetchData();
     }, []);
     
@@ -82,7 +100,7 @@ const Dashboard = () => {
     },
     {
       name: 'Sign Out',
-      path: '/login',
+      path: '',
       icon: Profile
     },
   ]
@@ -91,7 +109,7 @@ const Dashboard = () => {
     <Box sx={{ width: 200 }} style={{backgroundColor: '#0052CC', padding: '0 20px', height: '100%', color: 'white'}} role="presentation" onClick={toggleDrawer(false)}>
       <h3>Pipeline Monitor</h3>
       <List className="list">
-        {links.map((text, index) => (
+        {links.slice(0, 5).map((text, index) => (
           <ListItem className="listitem" key={text} disablePadding>
             <Link style={{display: 'flex', textDecoration: 'none', width: '100%', alignItems: 'center', color: 'white', gap:'8px'}} to={text.path}>
               <div style={{backgroundColor: 'white', borderRadius: '50%'}}>
@@ -99,8 +117,21 @@ const Dashboard = () => {
               </div>
               <ListItemText primary={text.name} />
             </Link>
+
           </ListItem>
         ))}
+        {links.slice(5, 6).map((text, index) => (
+          <ListItem className="listitem" key={text} disablePadding>
+            <Link style={{display: 'flex', textDecoration: 'none', width: '100%', alignItems: 'center', color: 'white', gap:'8px'}} onClick={logout}>
+              <div style={{backgroundColor: 'white', borderRadius: '50%'}}>
+                <img src={text.icon} alt="icon"/>
+              </div>
+              <ListItemText primary={text.name} />
+            </Link>
+
+          </ListItem>
+        ))}
+        
       </List>
       <Divider />
     </Box>
@@ -225,8 +256,18 @@ const Dashboard = () => {
             <nav>
               <ul style={{listStyle: 'none'}}>
                 {
-                  links.map((link, index)=> (
+                  links.slice(0, 5).map((link, index)=> (
                     <Link key={link} to={link.path} className="link" style={{textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '10px'}}>
+                      <div>
+                        <img src={link.icon} alt="icon"/>
+                      </div>
+                      <li>{link.name}</li>
+                    </Link>
+                  ))                
+                }
+                {
+                  links.slice(5, 6).map((link, index)=> (
+                    <Link key={link} onClick={logout} className="link" style={{textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '10px'}}>
                       <div>
                         <img src={link.icon} alt="icon"/>
                       </div>
@@ -251,7 +292,7 @@ const Dashboard = () => {
                   <thead>
                     <tr>
                       <th>Sensor</th>
-                      <th>Flow Rate</th>
+                      <th>Flow Rate (L/min)</th>
                       <th>Pressure</th>
                       <th>Fluid Level</th>
                       <th>Location</th>
@@ -259,14 +300,14 @@ const Dashboard = () => {
                   </thead>
                   <tbody>                 
                   {sensorData.slice(0, 2).map((sensor, index) => (
-                    <tr>
+                    <tr key={index}>
                       <th>Sensor {sensor.id}</th>
                       <th>{sensor.lastValue}</th>
                       <th>312psi</th>
                       <th>44 L</th>
                       <th>74Km</th>
                     </tr>
-                  ))}
+                  ))} 
           
                   </tbody>
                 </table>
@@ -279,7 +320,7 @@ const Dashboard = () => {
               <div className="grid-card">
                 <h3 style={{margin: '0'}}>Flow Rate Difference</h3>
                   <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-                      <p className="text-black" style={{fontSize: '25px', display: 'flex', alignItems: 'end', fontWeight: '500'}}>{sensorData.slice(3, 4).map((sensor, index) => (<p style={{margin: '0'}}>{sensor.lastValue}</p>))}
+                      <p className="text-black" style={{fontSize: '25px', display: 'flex', alignItems: 'end', fontWeight: '500'}}>{sensorData.slice(3, 4).map((sensor, index)=>(<p key={index} style={{margin : 0}}>{sensor.lastValue}</p>))}
                         <span style={{fontSize: '11px', fontWeight: '500'}}>m3/h</span>
                         <span style={{fontSize: '11px', color: '#00AC06'}}>5.2%</span>
                       </p>
@@ -343,17 +384,17 @@ const Dashboard = () => {
                     </tr>
                   </thead>
                   <tbody>
-                  {sensorData.slice(3, 4).map((sensor, index) => (
-                    <tr>
-                      <th>{sensor.createdAt}</th>
-                      <th>{sensor.lastValue}</th>
+                  {sensorData.slice(2, 3).map((sensor, index) => (
+                    <tr key={index}>
+                      <th>Sensor {sensor.id}</th>
+                      <th>Pressure</th>
                       <th>312psi</th>
                       <th>44 L</th>
                       <th>74Km</th>
-                      <th>{sensor.status}</th>
+                      <th>{sensor.lastValue}</th>
                     </tr>
   
-                  ))}
+                  ))} 
                   </tbody>
                 </table>
               </div>
