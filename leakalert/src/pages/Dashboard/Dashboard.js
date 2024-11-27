@@ -22,7 +22,7 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import { blue } from "@mui/material/colors";
-
+// import { Line } from "recharts";
 import axios from "axios";
 
 const Dashboard = () => {
@@ -30,6 +30,9 @@ const Dashboard = () => {
   const [sensorData, setSensorData] = useState([]);
 
   const [open, setOpen] = React.useState(false);
+  const [chartData, setChartData] = useState([]);
+
+
 
   const logout = () => {
     localStorage.removeItem("token");
@@ -45,6 +48,7 @@ const Dashboard = () => {
         console.error("No token found in localStorage.");
         return;
       }
+    
       const fetchData = async () => {
         try {
           const response = await fetch('https://leak-d9yr.onrender.com/api/v1/app/sensors/status', {
@@ -56,20 +60,35 @@ const Dashboard = () => {
           });
           const data = await response.json();
           const dataValues = data.structuredFeeds;
-          console.log(dataValues)
-          setSensorData(dataValues); 
-          // console.log(response)
+          console.log(dataValues);
+    
+          // Set sensor data
+          setSensorData(dataValues);
+    
+          // Process data for chart
+          const formattedData = dataValues.map(sensor => ({
+            name: sensor.createdAt.slice(11, 19), // Extract time as name
+            FlowRateDifference: Number(sensor.lastValue), // Convert value to number
+          }));
+          setChartData(formattedData);
         } catch (error) {
           console.error("Error fetching data:", error.message);
         }
       };
+    
+      // Fetch data initially and then at regular intervals
       fetchData();
+      const interval = setInterval(fetchData, 1000); 
+    
+      return () => clearInterval(interval);
     }, []);
+    
+    
     
 
   // }
 
-  const toggleDrawer = (newOpen: boolean) => () => {
+  const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
   };
   const links = [
@@ -80,7 +99,7 @@ const Dashboard = () => {
     },
     {
       name: 'Tables and Graph',
-      path: '/tables',
+      path: '#',
       icon: Table
     },
     {
@@ -136,95 +155,6 @@ const Dashboard = () => {
       <Divider />
     </Box>
   );
-
-
-
-  const data = [
-    {
-      name: 'Jan',
-      FlowRateDifference: 4,
-      PressureDifference: 6,
-      FluidLevelDifference: 8,
-      amt: 13,
-    },
-    {
-      name: 'Feb',
-      FlowRateDifference: 2,
-      PressureDifference: 13,
-      FluidLevelDifference: 8,
-      amt: 9,
-    },
-    {
-      name: 'Mar',
-      FlowRateDifference: 6,
-      PressureDifference: 3,
-      FluidLevelDifference: 10,
-      amt: 9,
-    },
-    {
-      name: 'Apr',
-      FlowRateDifference: 7,
-      PressureDifference: 3,
-      FluidLevelDifference: 2,
-      amt: 15,
-    },
-    {
-      name: 'May',
-      FlowRateDifference: 9,
-      PressureDifference: 3,
-      FluidLevelDifference: 4,
-      amt: 1,
-    },
-    {
-      name: 'Jun',
-      FlowRateDifference: 9,
-      PressureDifference: 1,
-      FluidLevelDifference: 6,
-      amt: 5,
-    },
-    {
-      name: 'Jul',
-      FlowRateDifference: 6,
-      PressureDifference: 7,
-      FluidLevelDifference: 10,
-      amt: 12,
-    },
-    {
-      name: 'Aug',
-      FlowRateDifference: 13,
-      PressureDifference: 9,
-      FluidLevelDifference: 4,
-      amt: 8,
-    },
-    {
-      name: 'Sep',
-      FlowRateDifference: 2,
-      PressureDifference: 7,
-      FluidLevelDifference: 12,
-      amt: 10,
-    },
-    {
-      name: 'Oct',
-      FlowRateDifference: 8,
-      PressureDifference: 4,
-      FluidLevelDifference: 3,
-      amt: 7,
-    },
-    {
-      name: 'Nov',
-      FlowRateDifference: 9,
-      PressureDifference: 8,
-      FluidLevelDifference: 14,
-      amt: 5,
-    },
-    {
-      name: 'Dec',
-      FlowRateDifference: 11,
-      PressureDifference: 12,
-      FluidLevelDifference: 14,
-      amt: 2,
-    },
-  ];
 
 
   return (
@@ -283,6 +213,7 @@ const Dashboard = () => {
         <div className='dashboard' >
           <div className="dash-wrapper">
             <div>
+              
             
             <div>
               <h3 style={{marginTop: '0'}}>Sensor Readings</h3>
@@ -321,7 +252,7 @@ const Dashboard = () => {
                 <h3 style={{margin: '0'}}>Flow Rate Difference</h3>
                   <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
                       <p className="text-black" style={{fontSize: '25px', display: 'flex', alignItems: 'end', fontWeight: '500'}}>{sensorData.slice(3, 4).map((sensor, index)=>(<p key={index} style={{margin : 0}}>{sensor.lastValue}</p>))}
-                        <span style={{fontSize: '11px', fontWeight: '500'}}>m3/h</span>
+                        <span style={{fontSize: '11px', fontWeight: '500'}}>L/min</span>
                         <span style={{fontSize: '11px', color: '#00AC06'}}>5.2%</span>
                       </p>
                       <p style={{color: 'lightgreen'}}>safe</p>
@@ -349,24 +280,21 @@ const Dashboard = () => {
               </div>
             </div>
             {/* <ResponsiveContainer style={{width: '400px', height: '400px', border: '2px solid black'}}> */}
-            <div className="chart" style={{overflow: 'hidden'}}>
-              <h3 style={{marginTop: '0'}}>Daily Changes / Flunctuation per time</h3>
-              <ResponsiveContainer width="100%" height={350}>
-                <LineChart
-                  className="chart-wrapper"
-                  style={{marginLeft: '-25px'}}
-                  data={data}
-                >
-                  <CartesianGrid strokeDasharray="1 10"/>
+            <div className="chart" style={{ overflow: 'hidden' }}>
+              <h3 style={{ marginTop: '0' }}>Daily Changes / Fluctuation per time</h3>
+              {chartData ? (
+
+              <ResponsiveContainer width="100%" height={300}>
+                <LineChart data={chartData} margin={{ top: 10, right: 30, left: -20, bottom: 0 }}>
+                  <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="name" />
                   <YAxis />
                   <Tooltip />
                   <Legend />
-                  <Line type="monotone" dataKey="PressureDifference" stroke="#8884d8"  />
-                  <Line type="monotone" dataKey="FlowRateDifference" stroke="#82ca9d" />
-                  <Line type="monotone" dataKey="FluidLevelDifference" stroke="#333" />
+                  <Line type="monotone" dataKey="FlowRateDifference" stroke="#8884d8" activeDot={{ r: 8 }} />
                 </LineChart>
               </ResponsiveContainer>
+              ):(<p>Loading Chart...</p>)}
             </div>
 
             <div>
@@ -376,22 +304,53 @@ const Dashboard = () => {
                   <thead>
                     <tr>
                       <th>Date/ Time</th>
-                      <th>Flow Rate</th>
+                      <th>Flow Rate Difference</th>
                       <th>Pressure</th>
                       <th>Fluid Level</th>
                       <th>Location</th>
-                      <th>Safety Safe</th>
+                      <th>Safety Status</th>
                     </tr>
                   </thead>
                   <tbody>
-                  {sensorData.slice(2, 3).map((sensor, index) => (
+                  {sensorData.slice(3, 4).map((sensor, index)=>(
                     <tr key={index}>
-                      <th>Sensor {sensor.id}</th>
-                      <th>Pressure</th>
+                      <th>
+                        {sensorData.slice(2, 3).map((sensor, index) => {
+                          // Extract the timestamp and manipulate it
+                          let timestamp = sensor.updatedAt;
+                          let firstPart = timestamp.slice(0, 10); // First nine characters
+                          let secondPart = timestamp.slice(11, 19); // 10th to 18th characters
+
+                          return (
+                            <p key={index} style={{ margin: 0 }}>
+                              {firstPart} {secondPart}
+                            </p>
+                          );
+                        })}
+                      </th>
+                      <th>{sensor.lastValue}</th>
                       <th>312psi</th>
                       <th>44 L</th>
                       <th>74Km</th>
-                      <th>{sensor.lastValue}</th>
+                      <th>
+                        {sensorData.slice(2, 3).map((sensor, index) => {
+                          // Determine the color based on sensor.lastValue
+                          let color;
+                          if (sensor.lastValue === 'SAFE') {
+                            color = 'green';
+                          } else if (sensor.lastValue === 'CAUTION') {
+                            color = 'yellow';
+                          } else if (sensor.lastValue === 'ALERT') {
+                            color = 'red';
+                          }
+
+                          return (
+                            <p key={index} style={{ margin: 0, color: color }}>
+                              {sensor.lastValue}
+                            </p>
+                          );
+                        })}
+                      </th>
                     </tr>
   
                   ))} 

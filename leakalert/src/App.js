@@ -6,7 +6,6 @@ import {ToastContainer} from "react-toastify"
 import Dashboard from './pages/Dashboard/Dashboard';
 import Reset from './pages/Reset/Reset';
 import Reports from './pages/Reports/Reports';
-import ResetPassword from './components/Password/Password';
 import 'react-toastify/dist/ReactToastify.css';
 import ProtectedRoute from './components/ProtectedRoute';
 
@@ -29,7 +28,6 @@ function App() {
                 }
               />
               <Route path='/reset' element={<Reset/>}/>
-              <Route path='/password' element={<ResetPassword/>}/>
               <Route path='/reports' element={<Reports/>}/>
             </Routes>
             <ToastContainer/>

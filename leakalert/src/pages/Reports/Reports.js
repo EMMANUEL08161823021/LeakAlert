@@ -35,7 +35,7 @@ const Reports = () => {
 
     const [open, setOpen] = React.useState(false);
 
-    const toggleDrawer = (newOpen: boolean) => () => {
+    const toggleDrawer = (newOpen) => () => {
       setOpen(newOpen);
     };
 
@@ -103,7 +103,7 @@ const Reports = () => {
         {
           name: 'Tables and Graph',
           path: '/tables',
-          icon: <BarChartIcon/>
+          icon: Table
         },
         {
           name: 'Report Logs',
@@ -134,12 +134,12 @@ const Reports = () => {
         <List className="list">
           {links.map((text, index) => (
             <ListItem className="listitem" key={text} disablePadding>
-              <Link style={{display: 'flex', textDecoration: 'none', width:'100%', alignItems: 'center', color: 'white', gap:'4px'}} to={text.path}>
-                <div>
-                  <img src={text.icon} alt="icon"/>
-                </div>
-                <ListItemText primary={text.name} />
-              </Link>
+              <Link style={{display: 'flex', textDecoration: 'none', width: '100%', alignItems: 'center', color: 'white', gap:'8px'}} to={text.path}>
+              <div style={{backgroundColor: 'white', borderRadius: '50%'}}>
+                <img src={text.icon} alt="icon"/>
+              </div>
+              <ListItemText primary={text.name} />
+            </Link>
             </ListItem>
           ))}
         </List>
