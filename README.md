@@ -10,6 +10,7 @@ Designed the UI/UX in Figma, focusing on user-friendly layouts and responsivenes
 3.	Frontend Languages:
 Core development utilized HTML, CSS, and JavaScript, along with React JSX for building reusable components.
 4.	Libraries and Tools:
+   
 o	React Router for navigation.
 o	Axios for making API calls.
 o	Recharts for visualizing sensor data and analytics.
@@ -18,29 +19,38 @@ o	UseEffect for real-time updates via time intervals.
 
 Key Pages and Features
 1. Login/Signup Page
+   
 •	Functionality:
 Integrated Firebase Authentication for secure user signups, logins, and password resets.
+
 •	UI/UX:
 Minimalistic forms styled with CSS and responsive design principles.
+
 •	Actions:
 Connected the form to Firebase, handling authentication requests and providing feedback on success or failure.
 
 2. Dashboard/Home Page
+   
 •	Functionality:
 Displays real-time data from IOT sensors, such as flow rates, pressure, and pipeline status, using UseEffect for real-time updates.
 Alerts are sent via email prominently when anomalies (like leaks) are detected.
+
 •	UI/UX:
 o	Dynamic graphs and indicators created with Recharts.
 o	Alerts are color-coded, with critical issues in red for better visibility.
+
 •	Actions:
 Used Axios to retrieve initial data from the backend (/api/sensor-data) and React useEffect for live updates.
 
 3. Incident Logging and Analytics Page
-•	Functionality:
+   
+•	Functionality: 
 Displays a history of pipeline incidents and basic analytics, including graphs for trends like leak frequency and response times.
+
 •	UI/UX:
 o	Used Recharts for visualizations (bar and line graphs).
 o	Provided date range filters for tailored views.
+
 •	Actions:
 Fetched data from backend endpoints (/api/logs, /api/reports/daily) and dynamically updated the charts based on user selections.
 
