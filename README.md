@@ -1,4 +1,5 @@
-How I Built the LeakAlert PWA
+How I Built the LeakAlert PWA 
+
 The LeakAlert PWA is a Progressive Web App designed to provide real-time monitoring and alerts for pipeline systems using IOT sensors. Here's a detailed breakdown of how I developed it using React.
 
 Technology Stack
