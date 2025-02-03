@@ -28,7 +28,7 @@ import axios from "axios";
 const Dashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [sensorData, setSensorData] = useState([]);
-
+  const [Loading, setLoading] = useState(false)
   const [open, setOpen] = React.useState(false);
   const [chartData, setChartData] = useState([]);
 
@@ -51,6 +51,7 @@ const Dashboard = () => {
     
       const fetchData = async () => {
         try {
+          setLoading(true);
           const response = await fetch('https://leak-d9yr.onrender.com/api/v1/app/sensors/status', {
             method: 'GET',
             headers: {
@@ -73,6 +74,8 @@ const Dashboard = () => {
           setChartData(formattedData);
         } catch (error) {
           console.error("Error fetching data:", error.message);
+        } finally {
+          setLoading(false);
         }
       };
     
@@ -129,7 +132,7 @@ const Dashboard = () => {
       <h3>Pipeline Monitor</h3>
       <List className="list">
         {links.slice(0, 5).map((text, index) => (
-          <ListItem className="listitem" key={text} disablePadding>
+          <ListItem className="listitem" key={index} disablePadding>
             <Link style={{display: 'flex', textDecoration: 'none', width: '100%', alignItems: 'center', color: 'white', gap:'8px'}} to={text.path}>
               <div style={{backgroundColor: 'white', borderRadius: '50%'}}>
                 <img src={text.icon} alt="icon"/>
@@ -187,7 +190,7 @@ const Dashboard = () => {
               <ul style={{listStyle: 'none'}}>
                 {
                   links.slice(0, 5).map((link, index)=> (
-                    <Link key={link} to={link.path} className="link" style={{textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '10px'}}>
+                    <Link key={index} to={link.path} className="link" style={{textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '10px'}}>
                       <div>
                         <img src={link.icon} alt="icon"/>
                       </div>
@@ -197,7 +200,7 @@ const Dashboard = () => {
                 }
                 {
                   links.slice(5, 6).map((link, index)=> (
-                    <Link key={link} onClick={logout} className="link" style={{textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '10px'}}>
+                    <Link key={index} onClick={logout} className="link" style={{textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '10px'}}>
                       <div>
                         <img src={link.icon} alt="icon"/>
                       </div>
@@ -229,16 +232,19 @@ const Dashboard = () => {
                       <th>Location</th>
                     </tr>
                   </thead>
-                  <tbody>                 
-                  {sensorData.slice(0, 2).map((sensor, index) => (
-                    <tr key={index}>
-                      <th>Sensor {sensor.id}</th>
-                      <th>{sensor.lastValue}</th>
-                      <th>312psi</th>
-                      <th>44 L</th>
-                      <th>74Km</th>
-                    </tr>
-                  ))} 
+                  <tbody>  
+                  {                    
+                    sensorData.slice(0, 2).map((sensor, index) => (
+                      <tr key={index}>
+                        <th>Sensor {sensor.id}</th>
+                        <th>{sensor.lastValue}</th>
+                        <th>312psi</th>
+                        <th>44 L</th>
+                        <th>74Km</th>
+                      </tr>
+                    ))   
+                  }        
+                  
           
                   </tbody>
                 </table>
@@ -251,7 +257,7 @@ const Dashboard = () => {
               <div className="grid-card">
                 <h3 style={{margin: '0'}}>Flow Rate Difference</h3>
                   <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-                      <p className="text-black" style={{fontSize: '25px', display: 'flex', alignItems: 'end', fontWeight: '500'}}>{sensorData.slice(3, 4).map((sensor, index)=>(<p key={index} style={{margin : 0}}>{sensor.lastValue}</p>))}
+                      <p className="text-black" style={{fontSize: '25px', display: 'flex', alignItems: 'end', fontWeight: '500'}}>{sensorData.slice(3, 4).map((sensor, index)=>(<span key={index} style={{margin : 0}}>{sensor.lastValue}</span>))}
                         <span style={{fontSize: '11px', fontWeight: '500'}}>L/min</span>
                         <span style={{fontSize: '11px', color: '#00AC06'}}>5.2%</span>
                       </p>
