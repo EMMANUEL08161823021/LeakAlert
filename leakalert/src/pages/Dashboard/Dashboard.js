@@ -243,9 +243,7 @@ const Dashboard = () => {
                         <th>74Km</th>
                       </tr>
                     ))   
-                  }        
-                  
-          
+                  }               
                   </tbody>
                 </table>
               
