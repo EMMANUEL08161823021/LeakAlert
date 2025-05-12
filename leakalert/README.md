@@ -1,70 +1,112 @@
-# Getting Started with Create React App
+# 🚨 LeakAlert - Real-Time Pipeline Monitoring PWA
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**LeakAlert** is a **Progressive Web App (PWA)** designed to monitor pipeline systems in real-time using IoT sensors. It features live data tracking, critical alerting, and offline support — all optimized with a clean, responsive UI built in React.
 
-## Available Scripts
+🔗 [View GitHub Repository](https://github.com/EMMANUEL08161823021/LeakAlert)
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## 🧰 Technology Stack
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### ✅ Framework
+- **React.js** – For fast, component-based UI development.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 🎨 Design Tools
+- **Figma** – For responsive UI/UX prototyping and layout planning.
 
-### `npm test`
+### 💻 Frontend Languages
+- **HTML**, **CSS**, **JavaScript**
+- **JSX** – For building reusable React components.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 🔧 Libraries & Tools
+- **React Router** – For SPA routing/navigation.
+- **Axios** – For API requests.
+- **Recharts** – For data visualization (charts and graphs).
+- **Firebase Authentication** – For secure user login/signup.
+- **Firebase Cloud Messaging (FCM)** – For real-time push notifications.
+- **useEffect (React Hook)** – For periodic polling and real-time updates.
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 📄 Key Pages & Features
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 🔐 1. Login / Signup Page
+- **Functionality**:
+  - Integrated Firebase Authentication for secure signups, logins, and password resets.
+- **UI/UX**:
+  - Clean and responsive form components.
+- **Actions**:
+  - Handles real-time validation and Firebase feedback for success/failure.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+### 📊 2. Dashboard / Home Page
+- **Functionality**:
+  - Displays live data from IoT sensors (flow rate, pressure, pipeline status).
+  - Triggers alerts via email when anomalies (like leaks) are detected.
+- **UI/UX**:
+  - Real-time charts via Recharts.
+  - Color-coded status indicators (e.g., red for critical alerts).
+- **Actions**:
+  - Retrieves sensor data using Axios from `/api/sensor-data`.
+  - Uses `useEffect` to handle live updates at intervals.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 📈 3. Incident Logging & Analytics Page
+- **Functionality**:
+  - Shows history of incidents and visual trend analytics.
+- **UI/UX**:
+  - Interactive bar/line graphs using Recharts.
+  - Date range filters for custom views.
+- **Actions**:
+  - Fetches data from `/api/logs` and `/api/reports/daily`.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+---
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## ⚙️ PWA-Specific Features
 
-## Learn More
+### 🧩 Service Worker
+- Provides **offline access** by caching critical assets.
+- Sends **real-time push notifications** via Firebase Cloud Messaging.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### 📱 Responsive Design
+- Mobile-first approach using CSS media queries and flexible grid layouts in React.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+---
 
-### Code Splitting
+## 🔗 Core Front-End Integrations
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### 1. Backend API Integration
+- RESTful API communication using Axios.
+- Real-time sensor updates, incident logs, and alerts.
 
-### Analyzing the Bundle Size
+### 2. Real-Time Data Display
+- React’s `useEffect` used for polling live sensor data and updating components without reloading the page.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+---
 
-### Making a Progressive Web App
+## 🧠 Challenges & Solutions
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### ⚡ Real-Time Data Performance
+- **Challenge**: UI lag from high-frequency data.
+- **Solution**: Optimized state management and rendering using React's virtual DOM and selective updates.
 
-### Advanced Configuration
+### 🌐 Cross-Browser Compatibility
+- **Challenge**: Inconsistent behavior on different browsers.
+- **Solution**: Extensive browser testing and use of modern CSS/JS standards.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### 📴 Offline Functionality
+- **Challenge**: App reliability during network failures.
+- **Solution**: Used service workers to cache content and provide fallback data for offline use.
 
-### Deployment
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## 📬 Contact
 
-### `npm run build` fails to minify
+**Emmanuel Oguntolu**  
+📧 emmanueloguntolu48@gmail.com  
+🌍 [Portfolio Website](https://emmanuel08161823021.github.io/)  
+📞 +234 708 265 9880
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
